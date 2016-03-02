@@ -3,8 +3,8 @@ FROM php:7.0.3-apache
 ENV PHP_EXTRA_CONFIGURE_ARGS --with-curl  --enable-opcache 
 
 ## Apache confs
-ADD apache-confs/000-default.conf /etc/apache2/sites-enabled/
-ADD apache-confs/default-ssl.conf /etc/apache2/sites-enabled/ 
+ADD apache-confs/*.conf /etc/apache2/sites-enabled/
+#ADD apache-confs/default-ssl.conf /etc/apache2/sites-enabled/ 
 
 ## SSL certificates
 #ADD apache-certs/apache.crt /etc/ssl/certs/apache.crt
