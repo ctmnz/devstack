@@ -18,6 +18,7 @@ devstack-web:
    - "80:80"
   links:
    - devstack-db:db
+   - devstack-memcached:memcache
   volumes_from:
    - devstack-storage
   container_name: devstack-web
