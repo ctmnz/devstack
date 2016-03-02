@@ -1,0 +1,36 @@
+devstack-db:
+  restart: always
+  build: devstack-db/
+  command: mysqld
+  volumes:
+   - ./volumes/db-volume/:/var/lib/mysql
+  ports:
+   - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: dbpass
+  container_name: devstack-db
+
+devstack-web:
+  restart: always
+  build: devstack-web/ 
+  ports:
+   - "443:443"
+   - "80:80"
+  links:
+   - devstack-db:db
+  volumes_from:
+   - devstack-storage
+  container_name: devstack-web
+
+devstack-storage:
+  image: php:7.0.3-apache
+  volumes:
+   - ../webapp/:/www/
+  command: chown www-data:www-data -R /www/
+
+devstack-memcached:
+  restart: always
+  image: memcached
+  container_name: devstack-memcached
+
+
